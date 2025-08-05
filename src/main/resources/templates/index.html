@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tsinjo</title>
+</head>
+<body>
+<h1>Tsinjo</h1>
+
+<form th:action="@{/donate}" th:object="${newDonation}" method="post">
+    <input type="text" th:field="*{donor.fullName}" placeholder="Nom Complet" required/>
+    <input type="email" th:field="*{donor.email}" placeholder="Email" required/>
+    <input type="number" th:field="*{payment.amount}" placeholder="Montant" required/>
+    <input type="text" th:field="*{payment.method}" placeholder="Moyen de paiement" required/>
+    <input type="text" th:field="*{pspPaymentId}" placeholder="PSP Payment ID" required/>
+    <button type="submit">Faire un Don</button>
+</form>
+
+<h2>Historique des Dons</h2>
+<ul>
+    <li th:each="don : ${donations}">
+        <span th:text="${don.payment.date}">Date</span> -
+        <span th:text="${don.donor.fullName}">Nom</span>
+        (<span th:text="${don.donor.email}">Email</span>) -
+        <span th:text="${don.payment.amount}">Montant</span> Ar -
+        <span th:text="${don.payment.method}">Méthode</span> -
+        <span th:text="${don.status}">Statut</span>
+    </li>
+</ul>
+
+<h2>Aides</h2>
+<ul>
+    <li th:each="help : ${helps}">
+        <span th:text="${help.description}">Description</span> -
+        <span th:text="${help.beneficiary.fullName}">Nom</span>
+    </li>
+</ul>
+</body>
+</html>
